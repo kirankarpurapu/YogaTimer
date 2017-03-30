@@ -1,5 +1,6 @@
 package com.example.kirank.yogatimer.ui;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -7,19 +8,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.kirank.yogatimer.R;
+import com.example.kirank.yogatimer.model.ListItem;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends Activity {
 
-    Button startTimer, endTimer;
+    ImageView startTimer, endTimer;
     TextView timerText;
     int i = 0, alarmDurationInMS = 3000;
     Uri notification;
@@ -27,6 +33,8 @@ public class MainActivity extends Activity {
     ArrayList<Integer> timesList = new ArrayList<>();
     int timesListPointer = 0;
     AsyncTimer timerTask = null;
+    SharedPreferences appSharedPrefs;
+    Gson gson;
 
     private class AsyncTimer extends AsyncTask<Void, Void, Void> {
 
@@ -117,10 +125,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        timesList.add(5000);
-        timesList.add(7000);
-        startTimer = (Button) findViewById(R.id.start_timer);
-        endTimer = (Button) findViewById(R.id.stop_timer);
+
+
+
+        appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+        gson = new Gson();
+        Type type = new TypeToken<List<ListItem>>(){}.getType();
+        String json = appSharedPrefs.getString("myItems", "");
+        ArrayList<ListItem> itemsList = gson.fromJson(json, type);
+        timesList.clear();
+        for(ListItem item : itemsList)
+            timesList.add(item.getTime()/10);
+
+        startTimer = (ImageView) findViewById(R.id.start_timer);
+        endTimer = (ImageView) findViewById(R.id.stop_timer);
         timerText = (TextView) findViewById(R.id.timerTextView);
         notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
@@ -128,7 +147,7 @@ public class MainActivity extends Activity {
         startTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i == 0) {
+                if(i == 0 && timesList.size() > 0) {
                     timerTask = new AsyncTimer(timesList.get(i++));
                     timerTask.execute();
                 }

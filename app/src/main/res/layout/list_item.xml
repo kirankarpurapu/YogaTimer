@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_gravity="clip_vertical"
     android:layout_weight="10"
-    android:orientation="horizontal"
-    android:padding="16dp"
     android:background="@drawable/background"
-    android:clickable="true">
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,18 +22,20 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:gravity="center|left"
+            android:maxWidth="200dp"
+            android:overScrollMode="ifContentScrolls"
             android:text="Kapalabhati"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/durationOfTheExercise_id"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
             android:fontFamily="sans-serif"
             android:gravity="center|right"
             android:text="10mins"
-            android:layout_marginLeft="20dp"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
 
     </LinearLayout>
@@ -44,7 +46,6 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_weight="1"
-        android:src="@drawable/ic_reorder_grey_500_24dp"
-         />
+        android:src="@drawable/ic_reorder_grey_500_24dp" />
 
 </LinearLayout>

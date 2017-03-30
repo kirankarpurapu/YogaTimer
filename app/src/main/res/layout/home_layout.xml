@@ -19,6 +19,6 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_reorder_grey_500_24dp" />
+        android:src="@drawable/ic_alarm_add_black_24dp" />
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.kirank.yogatimer.R;
 import com.example.kirank.yogatimer.model.ListItem;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -49,7 +50,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         ListItem item = itemsList.get(position);
         holder.nameOfTheExercise.setText(item.getName() + "");
-        holder.durationOfTheExercise.setText(item.getTime() + "");
+        int timeInmillis = item.getTime(), time = timeInmillis/1000;
+        int hours = time/3600;
+        time = time - hours * 3600;
+        int minutes = time/60;
+        holder.durationOfTheExercise.setText(new DecimalFormat("00").format(hours) + " hr(s) : " + new DecimalFormat("00").format(minutes) + " min(s)");
     }
 
     @Override
