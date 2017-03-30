@@ -1,4 +1,4 @@
-package com.example.kirank.yogatimer;
+package com.example.kirank.yogatimer.ui;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.kirank.yogatimer.R;
+
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
@@ -18,7 +21,6 @@ public class MainActivity extends Activity {
 
     Button startTimer, endTimer;
     TextView timerText;
-    Handler handler;
     int i = 0, alarmDurationInMS = 3000;
     Uri notification;
     MediaPlayer mp;
@@ -117,7 +119,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         timesList.add(5000);
         timesList.add(7000);
-//        timesList.add(10000);
         startTimer = (Button) findViewById(R.id.start_timer);
         endTimer = (Button) findViewById(R.id.stop_timer);
         timerText = (TextView) findViewById(R.id.timerTextView);
@@ -127,7 +128,7 @@ public class MainActivity extends Activity {
         startTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(timesList != null && i == 0) {
+                if(i == 0) {
                     timerTask = new AsyncTimer(timesList.get(i++));
                     timerTask.execute();
                 }
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 i = 0;
-                Log.d("RUNNABLE", "end timer " + (timerTask == null) + "  " + timerTask.getStatus());
+                Log.d("RUNNABLE", "end timer ");
                 if(timerTask != null) {
                     timerTask.cancel(true);
                     if(mp != null && mp.isPlaying())
