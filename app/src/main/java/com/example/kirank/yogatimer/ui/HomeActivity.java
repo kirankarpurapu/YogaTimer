@@ -31,6 +31,7 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
     SharedPreferences appSharedPrefs;
     SharedPreferences.Editor prefsEditor;
     Gson gson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,8 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
         appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
-        Type type = new TypeToken<List<ListItem>>(){}.getType();
+        Type type = new TypeToken<List<ListItem>>() {
+        }.getType();
         String json = appSharedPrefs.getString("myItems", "");
         itemsList = gson.fromJson(json, type);
         addNewExercise = (FloatingActionButton) findViewById(R.id.addRows);
@@ -56,22 +58,25 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
             }
         });
     }
+
     private void showEditDialog() {
         FragmentManager fm = getFragmentManager();
         editTimeFragment = TimePickerFragment.newInstance(new TimePickerFragment.TimePickerCallback() {
             @Override
             public void cancel() {
-                if(editTimeFragment != null)
+                if (editTimeFragment != null)
                     editTimeFragment.dismiss();
             }
 
             @Override
             public void succeed(int hours, int minutes, String name) {
                 int milliseconds = (minutes * 60 + hours * 60 * 60) * 1000;
-                ListItem newItem = new ListItem(name, milliseconds);
-                itemsList.add(newItem);
-                adapter.notifyItemInserted(itemsList.size() - 1);
-                updateSharedPreferences(itemsList);
+                if (milliseconds != 0) {
+                    ListItem newItem = new ListItem(name, milliseconds);
+                    itemsList.add(newItem);
+                    adapter.notifyItemInserted(itemsList.size() - 1);
+                    updateSharedPreferences(itemsList);
+                }
                 cancel();
             }
         });
