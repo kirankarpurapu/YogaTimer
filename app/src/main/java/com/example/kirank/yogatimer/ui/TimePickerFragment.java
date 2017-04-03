@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.example.kirank.yogatimer.R;
 
@@ -16,17 +16,13 @@ import com.example.kirank.yogatimer.R;
  * Created by kirank on 3/29/17.
  */
 
-public class TimePickerFragment extends DialogFragment  {
+public class TimePickerFragment extends DialogFragment {
 
     private static TimePickerCallback timePickerCallback;
-    private NumberPicker hoursPicker, minutesPicker;
+    private CircularSeekBar hoursPicker, minutesPicker;
     private ImageView cancel, proceed;
     private EditText name;
-
-    public interface TimePickerCallback {
-         void cancel();
-         void succeed(int hours, int minutes, String name);
-    }
+    private TextView hoursTV, minutesTV;
 
     public TimePickerFragment() {
     }
@@ -49,18 +45,51 @@ public class TimePickerFragment extends DialogFragment  {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        hoursPicker = (NumberPicker) view.findViewById(R.id.numberPickerHour);
-        minutesPicker = (NumberPicker) view.findViewById(R.id.numberPickerMinute);
+        hoursPicker = (CircularSeekBar) view.findViewById(R.id.numberPickerHour);
+        minutesPicker = (CircularSeekBar) view.findViewById(R.id.numberPickerMinute);
         cancel = (ImageView) view.findViewById(R.id.cancel_new_exercise);
         proceed = (ImageView) view.findViewById(R.id.add_exercise_button);
         name = (EditText) view.findViewById(R.id.edit_name);
 
-        hoursPicker.setMinValue(0);
-        hoursPicker.setMaxValue(10);
-        minutesPicker.setMinValue(0);
-        minutesPicker.setMaxValue(59);
-        hoursPicker.setWrapSelectorWheel(false);
-        minutesPicker.setWrapSelectorWheel(false);
+        hoursTV = (TextView) view.findViewById(R.id.hours_tv);
+        minutesTV = (TextView) view.findViewById(R.id.minutes_tv);
+
+        hoursPicker.setMax(24);
+        minutesPicker.setMax(60);
+
+        hoursPicker.setOnSeekBarChangeListener(new CircularSeekBar.OnCircularSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(CircularSeekBar circularSeekBar, int progress, boolean fromUser) {
+                hoursTV.setText(""+progress);
+            }
+
+            @Override
+            public void onStopTrackingTouch(CircularSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(CircularSeekBar seekBar) {
+
+            }
+        });
+
+        minutesPicker.setOnSeekBarChangeListener(new CircularSeekBar.OnCircularSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(CircularSeekBar circularSeekBar, int progress, boolean fromUser) {
+                minutesTV.setText(""+progress);
+            }
+
+            @Override
+            public void onStopTrackingTouch(CircularSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(CircularSeekBar seekBar) {
+
+            }
+        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +101,14 @@ public class TimePickerFragment extends DialogFragment  {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timePickerCallback.succeed(hoursPicker.getValue(), minutesPicker.getValue(), name.getText().toString());
+                   timePickerCallback.succeed(hoursPicker.getProgress(), minutesPicker.getProgress(), name.getText().toString());
             }
         });
+    }
+
+    public interface TimePickerCallback {
+        void cancel();
+
+        void succeed(int hours, int minutes, String name);
     }
 }
