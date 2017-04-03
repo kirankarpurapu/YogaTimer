@@ -18,16 +18,19 @@
         android:id="@+id/current_event_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Current Item"
-        android:textSize="30dp"/>
+        android:text=""
+        android:gravity="center"
+        android:textSize="70dp"/>
 
 
     <TextView
-        android:id="@+id/current_event_textview"
+        android:id="@+id/next_event_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Current Item"
-        android:textSize="30dp"/>
+        android:text=""
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textSize="70dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

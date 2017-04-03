@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/list_longpressed_holo.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/list_pressed_holo_light.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/np_numberpicker_selection_divider.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/np_numberpicker_selection_divider.9.png"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/list_focused_holo.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/list_focused_holo.9.png"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/list_selector_disabled_holo_dark.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/list_selector_disabled_holo_light.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/list_pressed_holo_dark.9.png",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/list_pressed_holo_dark.9.png"
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable/item_background_holo_light.xml",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable/item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable/item_background_holo_dark.xml",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable/item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable/list_selector_background_transition_holo_dark.xml",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable/list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/res/merged/androidTest/debug/drawable/list_selector_background_transition_holo_light.xml",
+        "source": "/Users/kirank/AndroidStudioProjects/YogaTimer/circularseek/build/intermediates/bundles/debug/res/drawable/list_selector_background_transition_holo_light.xml"
+    }
+]

@@ -27,10 +27,12 @@ public class MainActivity extends Activity {
 
     ImageView startTimer, endTimer;
     TextView timerText;
+    TextView currentExercise, nextExercise;
     int i = 0, alarmDurationInMS = 3000;
     Uri notification;
     MediaPlayer mp;
     ArrayList<Integer> timesList = new ArrayList<>();
+    ArrayList<String> namesList = new ArrayList<>();
     int timesListPointer = 0;
     AsyncTimer timerTask = null;
     SharedPreferences appSharedPrefs;
@@ -116,8 +118,19 @@ public class MainActivity extends Activity {
 
     public void callNextTimerTask() {
         if(i >=0 && i < timesList.size()) {
-            timerTask = new AsyncTimer(timesList.get(i++));
+            timesListPointer = i++;
+            currentExercise.setText("Current: " + namesList.get(timesListPointer));
+            if(timesListPointer + 1 < namesList.size()) {
+                nextExercise.setText("Next: " + namesList.get(timesListPointer + 1));
+            }else {
+                nextExercise.setText("");
+            }
+            timerTask = new AsyncTimer(timesList.get(timesListPointer));
             timerTask.execute();
+        }
+        else {
+            currentExercise.setText("");
+            nextExercise.setText("");
         }
     }
 
@@ -135,19 +148,26 @@ public class MainActivity extends Activity {
         String json = appSharedPrefs.getString("myItems", "");
         ArrayList<ListItem> itemsList = gson.fromJson(json, type);
         timesList.clear();
-        for(ListItem item : itemsList)
-            timesList.add(item.getTime()/10);
+        namesList.clear();
+        for(ListItem item : itemsList) {
+            timesList.add(item.getTime() / 10);
+            namesList.add(item.getName());
+        }
 
         startTimer = (ImageView) findViewById(R.id.start_timer);
         endTimer = (ImageView) findViewById(R.id.stop_timer);
         timerText = (TextView) findViewById(R.id.timerTextView);
         notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        currentExercise = (TextView) findViewById(R.id.current_event_textview);
+        nextExercise = (TextView) findViewById(R.id.next_event_textview);
 
 
         startTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i == 0 && timesList.size() > 0) {
+                    currentExercise.setText("Current: " + namesList.get(i));
+                    nextExercise.setText("Next: " + namesList.get(i + 1));
                     timerTask = new AsyncTimer(timesList.get(i++));
                     timerTask.execute();
                 }
