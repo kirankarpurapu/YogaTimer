@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends Activity implements CustomAdapter.ItemClickCallback {
@@ -43,6 +44,9 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
         }.getType();
         String json = appSharedPrefs.getString("myItems", "");
         itemsList = gson.fromJson(json, type);
+        if(itemsList == null){
+            itemsList = new ArrayList<>();
+        }
         addNewExercise = (FloatingActionButton) findViewById(R.id.addRows);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewId);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
