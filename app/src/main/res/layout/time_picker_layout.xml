@@ -28,14 +28,15 @@
             android:layout_centerInParent="true"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/hours_tv"
+        <EditText
+            android:id="@+id/hours_et"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="45dp"
             android:layout_toLeftOf="@id/space"
             android:gravity="center"
             android:text="0"
+            android:digits="1234567890"
             android:textSize="40sp" />
 
         <com.example.kirank.yogatimer.ui.CircularSeekBar
@@ -72,14 +73,15 @@
             android:layout_centerInParent="true"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/minutes_tv"
+        <EditText
+            android:id="@+id/minutes_et"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="45dp"
             android:layout_toLeftOf="@id/space2"
             android:gravity="center"
             android:text="0"
+            android:digits="1234567890"
             android:textSize="40sp" />
 
         <com.example.kirank.yogatimer.ui.CircularSeekBar
@@ -116,14 +118,15 @@
             android:layout_centerInParent="true"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/seconds_tv"
+        <EditText
+            android:id="@+id/seconds_et"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="45dp"
             android:layout_toLeftOf="@id/space3"
             android:gravity="center"
             android:text="0"
+            android:digits="1234567890"
             android:textSize="40sp" />
 
         <com.example.kirank.yogatimer.ui.CircularSeekBar

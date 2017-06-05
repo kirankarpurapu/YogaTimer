@@ -83,6 +83,17 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
                 }
                 cancel();
             }
+
+            @Override
+            public void numberFormatException() {
+                Toast.makeText(getApplicationContext(), "invalid field(s), please retry", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void numberLimitReached(String message) {
+                Toast.makeText(getApplicationContext(), "Message:" +message, Toast.LENGTH_LONG).show();
+
+            }
         });
         editTimeFragment.show(fm, "Select the Duration");
     }
