@@ -54,7 +54,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         int hours = time/3600;
         time = time - hours * 3600;
         int minutes = time/60;
-        holder.durationOfTheExercise.setText(new DecimalFormat("00").format(hours) + " hr(s) : " + new DecimalFormat("00").format(minutes) + " min(s)");
+        time = time - minutes * 60;
+        int seconds = time;
+        holder.durationOfTheExercise.setText(new DecimalFormat("00").format(hours) + " hr(s) : " + new DecimalFormat("00").format(minutes) + " min(s)"
+         + ": " + new DecimalFormat("00").format(seconds) + "sec(s)");
     }
 
     @Override

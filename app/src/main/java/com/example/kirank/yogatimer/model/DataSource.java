@@ -7,6 +7,9 @@ import java.util.List;
  * Created by kirank on 3/29/17.
  */
 
+
+// used for testing the app while development
+
 public class DataSource {
 
     public static final String[] namesOfExercises = {"Exercise A", "Exercise B", "Exercise C" };

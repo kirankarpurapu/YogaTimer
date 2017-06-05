@@ -73,8 +73,8 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
             }
 
             @Override
-            public void succeed(int hours, int minutes, String name) {
-                int milliseconds = (minutes * 60 + hours * 60 * 60) * 1000;
+            public void succeed(int hours, int minutes, int seconds, String name) {
+                int milliseconds = (seconds + minutes * 60 + hours * 60 * 60) * 1000;
                 if (milliseconds != 0) {
                     ListItem newItem = new ListItem(name, milliseconds);
                     itemsList.add(newItem);

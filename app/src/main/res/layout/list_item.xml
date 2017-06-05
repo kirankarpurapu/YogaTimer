@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:gravity="center|left"
+            android:gravity="center|left|center_vertical"
             android:maxWidth="200dp"
             android:overScrollMode="ifContentScrolls"
             android:text="Kapalabhati"
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:fontFamily="sans-serif"
-            android:gravity="center|right"
+            android:gravity="center|right|center_vertical"
             android:text="10mins"
             android:textSize="15dp" />
 

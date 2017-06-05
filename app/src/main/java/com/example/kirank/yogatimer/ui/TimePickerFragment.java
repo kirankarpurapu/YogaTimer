@@ -19,10 +19,10 @@ import com.example.kirank.yogatimer.R;
 public class TimePickerFragment extends DialogFragment {
 
     private static TimePickerCallback timePickerCallback;
-    private CircularSeekBar hoursPicker, minutesPicker;
+    private CircularSeekBar hoursPicker, minutesPicker, secondPicker;
     private ImageView cancel, proceed;
     private EditText name;
-    private TextView hoursTV, minutesTV;
+    private TextView hoursTV, minutesTV, secondsTV;
 
     public TimePickerFragment() {
     }
@@ -47,20 +47,23 @@ public class TimePickerFragment extends DialogFragment {
 
         hoursPicker = (CircularSeekBar) view.findViewById(R.id.numberPickerHour);
         minutesPicker = (CircularSeekBar) view.findViewById(R.id.numberPickerMinute);
+        secondPicker = (CircularSeekBar) view.findViewById(R.id.numberPickerSecond);
         cancel = (ImageView) view.findViewById(R.id.cancel_new_exercise);
         proceed = (ImageView) view.findViewById(R.id.add_exercise_button);
         name = (EditText) view.findViewById(R.id.edit_name);
 
         hoursTV = (TextView) view.findViewById(R.id.hours_tv);
         minutesTV = (TextView) view.findViewById(R.id.minutes_tv);
+        secondsTV = (TextView) view.findViewById(R.id.seconds_tv);
 
         hoursPicker.setMax(24);
         minutesPicker.setMax(60);
+        secondPicker.setMax(60);
 
         hoursPicker.setOnSeekBarChangeListener(new CircularSeekBar.OnCircularSeekBarChangeListener() {
             @Override
             public void onProgressChanged(CircularSeekBar circularSeekBar, int progress, boolean fromUser) {
-                hoursTV.setText(""+progress);
+                hoursTV.setText("" + progress);
             }
 
             @Override
@@ -77,7 +80,24 @@ public class TimePickerFragment extends DialogFragment {
         minutesPicker.setOnSeekBarChangeListener(new CircularSeekBar.OnCircularSeekBarChangeListener() {
             @Override
             public void onProgressChanged(CircularSeekBar circularSeekBar, int progress, boolean fromUser) {
-                minutesTV.setText(""+progress);
+                minutesTV.setText("" + progress);
+            }
+
+            @Override
+            public void onStopTrackingTouch(CircularSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(CircularSeekBar seekBar) {
+
+            }
+        });
+
+        secondPicker.setOnSeekBarChangeListener(new CircularSeekBar.OnCircularSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(CircularSeekBar circularSeekBar, int progress, boolean fromUser) {
+                secondsTV.setText("" + progress);
             }
 
             @Override
@@ -101,7 +121,7 @@ public class TimePickerFragment extends DialogFragment {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   timePickerCallback.succeed(hoursPicker.getProgress(), minutesPicker.getProgress(), name.getText().toString());
+                   timePickerCallback.succeed(hoursPicker.getProgress(), minutesPicker.getProgress(), secondPicker.getProgress(), name.getText().toString());
             }
         });
     }
@@ -109,6 +129,6 @@ public class TimePickerFragment extends DialogFragment {
     public interface TimePickerCallback {
         void cancel();
 
-        void succeed(int hours, int minutes, String name);
+        void succeed(int hours, int minutes, int seconds, String name);
     }
 }

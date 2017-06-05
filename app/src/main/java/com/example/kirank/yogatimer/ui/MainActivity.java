@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     ImageView startTimer, endTimer;
     TextView timerText;
     TextView currentExercise, nextExercise;
-    int i = 0, alarmDurationInMS = 3000;
+    int i = 0, alarmDurationInMS = 1000;
     Uri notification;
     MediaPlayer mp;
     ArrayList<Integer> timesList = new ArrayList<>();
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
                     time -= 1000;
                     timerText.setText((time / 1000) + "");
 
-                    Log.d("RUNNABLE", "Doing some work in the handler");
+//                    Log.d("RUNNABLE", "Doing some work in the handler");
                     if(time > 0) {
                         handler.postDelayed(this, 1000);
                     }
@@ -150,8 +150,9 @@ public class MainActivity extends Activity {
         timesList.clear();
         namesList.clear();
         for(ListItem item : itemsList) {
-            timesList.add(item.getTime() / 10);
+            timesList.add(item.getTime());
             namesList.add(item.getName());
+            Log.d("Time: ", item.getTime() + "");
         }
 
         startTimer = (ImageView) findViewById(R.id.start_timer);
@@ -167,7 +168,9 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if(i == 0 && timesList.size() > 0) {
                     currentExercise.setText("Current: " + namesList.get(i));
-                    nextExercise.setText("Next: " + namesList.get(i + 1));
+                    if(namesList.size() > i + 1) {
+                        nextExercise.setText("Next: " + namesList.get(i + 1));
+                    }
                     timerTask = new AsyncTimer(timesList.get(i++));
                     timerTask.execute();
                 }
