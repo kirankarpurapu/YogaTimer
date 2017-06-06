@@ -8,6 +8,9 @@
     android:padding="10dp">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
@@ -172,5 +175,6 @@
             android:src="@android:drawable/ic_menu_add" />
 
     </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
