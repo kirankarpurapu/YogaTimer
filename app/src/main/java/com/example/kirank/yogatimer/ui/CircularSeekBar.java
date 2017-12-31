@@ -238,7 +238,7 @@ public class CircularSeekBar extends View {
     protected boolean lockEnabled = true;
 
     /**
-     * Used for when the user moves beyond the start of the circle when moving counter clockwise.
+     * Used for when the user moves beyond the startNormal of the circle when moving counter clockwise.
      * Makes it easier to hit the 0 progress mark.
      */
     protected boolean lockAtStart = true;
@@ -677,7 +677,7 @@ public class CircularSeekBar extends View {
                     mUserIsMovingPointer = true;
                     lockAtEnd = false;
                     lockAtStart = false;
-                } else if (cwDistanceFromStart > mTotalCircleDegrees) { // If the user is touching outside of the start AND end
+                } else if (cwDistanceFromStart > mTotalCircleDegrees) { // If the user is touching outside of the startNormal AND end
                     mUserIsMovingPointer = false;
                     return false;
                 } else if ((touchEventRadius >= innerRadius) && (touchEventRadius <= outerRadius)) { // If the user is touching near the circle

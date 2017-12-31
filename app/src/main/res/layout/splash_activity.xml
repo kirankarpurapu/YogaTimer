@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="2"
+    android:weightSum="3"
     android:padding="5dp">
 
 
@@ -21,6 +21,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start"
+        android:textSize="35dp"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:id="@+id/specialStartTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start - Special"
         android:textSize="35dp"
         android:layout_weight="1"
         />

@@ -1,4 +1,5 @@
 package com.example.kirank.yogatimer.ui;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -8,17 +9,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.kirank.yogatimer.R;
 import com.example.kirank.yogatimer.model.ListItem;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     ImageView startTimer, endTimer;
     TextView timerText;
     TextView currentExercise, nextExercise;
-    int i = 0, alarmDurationInMS = 1000;
+    int i = 0, alarmDurationInMS = 5000;
     Uri notification;
     MediaPlayer mp;
     ArrayList<Integer> timesList = new ArrayList<>();
@@ -56,20 +56,20 @@ public class MainActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    timerText.setText(timeCopy/1000 + "");
+                    timerText.setText(String.valueOf(timeCopy / 1000));
                 }
             });
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
                     time -= 1000;
-                    timerText.setText((time / 1000) + "");
+                    timerText.setText(String.valueOf(time / 1000));
 
 //                    Log.d("RUNNABLE", "Doing some work in the handler");
-                    if(time > 0) {
+                    if (time > 0) {
                         handler.postDelayed(this, 1000);
                     }
-                    if(time == 0) {
+                    if (time == 0) {
                         playAlarm(latch);
                     }
                 }
@@ -86,6 +86,7 @@ public class MainActivity extends Activity {
             Log.d("RUNNABLE", "finished waiting for the latch");
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             Log.d("RUNNABLE", "Finished task of " + timeCopy);
@@ -109,28 +110,26 @@ public class MainActivity extends Activity {
 
     public void stopAlarm(CountDownLatch latch) {
         Log.d("RUNNABLE", "Stop alarm called");
-        if(mp != null && mp.isPlaying())
+        if (mp != null && mp.isPlaying())
             mp.stop();
-        timerText.setText(0 + "");
-        if(latch != null)
+        timerText.setText(String.valueOf(0));
+        if (latch != null)
             latch.countDown();
     }
 
     public void callNextTimerTask() {
-        if(i >=0 && i < timesList.size()) {
+        if (i >= 0 && i < timesList.size()) {
             timesListPointer = i++;
             currentExercise.setText("Current: " + namesList.get(timesListPointer));
-            if(timesListPointer + 1 < namesList.size()) {
+            if (timesListPointer + 1 < namesList.size()) {
                 nextExercise.setText("Next: " + namesList.get(timesListPointer + 1));
-            }else {
+            } else {
                 nextExercise.setText("");
             }
             timerTask = new AsyncTimer(timesList.get(timesListPointer));
             timerTask.execute();
-        }
-        else {
-            currentExercise.setText("");
-            nextExercise.setText("");
+        } else {
+            endTimer.callOnClick();
         }
     }
 
@@ -139,17 +138,25 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(!(getIntent().getSerializableExtra("itemsList") instanceof List)) {
+            // TODO: handle this error
+        }
+
+        ArrayList<ListItem> itemsList = (ArrayList<ListItem>) getIntent().getSerializableExtra("itemsList");
+        Log.d("Data: ", itemsList.toString());
+
+//        To convert shared prefs array to itemsList
+//        appSharedPrefs = PreferenceManager
+//                .getDefaultSharedPreferences(this.getApplicationContext());
+//        gson = new Gson();
+//        Type type = new TypeToken<List<ListItem>>(){}.getType();
+//        String json = appSharedPrefs.getString("myItems", "");
+//        ArrayList<ListItem> itemsList = gson.fromJson(json, type);
 
 
-        appSharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this.getApplicationContext());
-        gson = new Gson();
-        Type type = new TypeToken<List<ListItem>>(){}.getType();
-        String json = appSharedPrefs.getString("myItems", "");
-        ArrayList<ListItem> itemsList = gson.fromJson(json, type);
         timesList.clear();
         namesList.clear();
-        for(ListItem item : itemsList) {
+        for (ListItem item : itemsList) {
             timesList.add(item.getTime());
             namesList.add(item.getName());
             Log.d("Time: ", item.getTime() + "");
@@ -162,20 +169,29 @@ public class MainActivity extends Activity {
         currentExercise = (TextView) findViewById(R.id.current_event_textview);
         nextExercise = (TextView) findViewById(R.id.next_event_textview);
 
+        if (i == 0 && timesList.size() > 0) {
+            currentExercise.setText("Current: " + namesList.get(i));
+            if (namesList.size() > i + 1) {
+                nextExercise.setText("Next: " + namesList.get(i + 1));
+            }
+        }
 
         startTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i == 0 && timesList.size() > 0) {
-                    currentExercise.setText("Current: " + namesList.get(i));
-                    if(namesList.size() > i + 1) {
-                        nextExercise.setText("Next: " + namesList.get(i + 1));
+                if (timesList.size() == 0) {
+                    Toast.makeText(getApplicationContext(), "please add an exercise", Toast.LENGTH_LONG).show();
+                } else {
+                    if (i == 0 && timesList.size() > 0) {
+                        currentExercise.setText("Current: " + namesList.get(i));
+                        if (namesList.size() > i + 1) {
+                            nextExercise.setText("Next: " + namesList.get(i + 1));
+                        }
+                        timerTask = new AsyncTimer(timesList.get(i++));
+                        timerTask.execute();
+                    } else {
+                        Log.d("RUNNABLE", "Pressing startNormal multiple times is bad");
                     }
-                    timerTask = new AsyncTimer(timesList.get(i++));
-                    timerTask.execute();
-                }
-                else {
-                    Log.d("RUNNABLE", "Pressing start multiple times is bad");
                 }
             }
         });
@@ -183,10 +199,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 i = 0;
+                currentExercise.setText("");
+                nextExercise.setText("");
+                currentExercise.setText("Exercise Completed !!");
                 Log.d("RUNNABLE", "end timer ");
-                if(timerTask != null) {
+                if (timerTask != null) {
                     timerTask.cancel(true);
-                    if(mp != null && mp.isPlaying())
+                    if (mp != null && mp.isPlaying())
                         mp.stop();
                     i = 0;
                 }

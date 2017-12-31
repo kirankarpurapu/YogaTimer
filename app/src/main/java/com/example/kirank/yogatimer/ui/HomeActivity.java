@@ -37,6 +37,8 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_layout);
+
+
         appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
@@ -44,6 +46,8 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
         }.getType();
         String json = appSharedPrefs.getString("myItems", "");
         itemsList = gson.fromJson(json, type);
+
+
         if(itemsList == null) {
             itemsList = new ArrayList<>();
         }
@@ -142,7 +146,7 @@ public class HomeActivity extends Activity implements CustomAdapter.ItemClickCal
     @Override
     public void onItemClick(int position) {
         ListItem item = itemsList.get(position);
-        // use a diaglog to update the listing here
+        // use a dialog to update the listing here
     }
 
     @Override
